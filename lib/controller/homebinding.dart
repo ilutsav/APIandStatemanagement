@@ -5,7 +5,6 @@ import 'homePageController.dart';
 class HomeBinding extends Bindings {
   @override
   void dependencies() {
-    // Get.put(HomePageController());
     Get.lazyPut<HomePageController>(() => HomePageController());
     Get.lazyPut<PostController>(() => PostController());
   }
