@@ -1,34 +1,47 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:get/instance_manager.dart';
-import 'package:listing_detail_showcase_app/controller/postController.dart';
+import 'package:listing_detail_showcase_app/controller/homePageController.dart';
+import 'package:listing_detail_showcase_app/views/posts.dart';
+import 'package:listing_detail_showcase_app/views/todos.dart';
+import 'package:listing_detail_showcase_app/views/users.dart';
 
 class HomePage extends StatelessWidget {
-  // const HomePage({super.key});
-  final PostController postController = Get.put(PostController());
-
-  // List<Post>? posts;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(title: const Text('Posts')),
-        body: Obx(
-          () => ListView.builder(
-            itemCount: postController.postList.length,
-            itemBuilder: (context, index) {
-              return ListTile(
-                title: Text(postController.postList[index].title),
-                subtitle: Text(postController.postList[index].body),
-              );
-            },
+    return GetBuilder<HomePageController>(
+      builder: (controller) {
+        return Scaffold(
+          appBar: AppBar(title: const Text('Posts')),
+          body: SafeArea(
+            child: IndexedStack(
+              //  index: controller.tabIndex,
+              children: const [
+                Posts(),
+                Todos(),
+                Users(),
+              ],
+            ),
           ),
-        ),
-        bottomNavigationBar: NavigationBar(
-          destinations: [
-            Container(child: Center(child: Text('todos'))),
-            Container(child: Center(child: Text('posts'))),
-            Container(child: Center(child: Text('users'))),
-          ],
-        ));
+          bottomNavigationBar: BottomNavigationBar(
+            //  currentIndex: controller.tabIndex,
+            onTap: controller.changeIndex,
+            items: const [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.post_add),
+                label: 'posts',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.person),
+                label: 'users',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.today),
+                label: 'todos',
+              ),
+            ],
+          ),
+        );
+      },
+    );
   }
 }
