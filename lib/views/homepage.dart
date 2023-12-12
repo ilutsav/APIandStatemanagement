@@ -1,29 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:listing_detail_showcase_app/controller/homePageController.dart';
 import 'package:listing_detail_showcase_app/views/posts.dart';
 import 'package:listing_detail_showcase_app/views/todos.dart';
 import 'package:listing_detail_showcase_app/views/users.dart';
 
+import '../controller/postController.dart';
+import '../controller/todosController.dart';
+
 class HomePage extends StatelessWidget {
+  const HomePage({super.key});
   @override
   Widget build(BuildContext context) {
+    Get.lazyPut<HomePageController>(() => HomePageController());
+    Get.lazyPut<PostController>(() => PostController());
+    Get.lazyPut<TodosController>(() => TodosController());
     return GetBuilder<HomePageController>(
       builder: (controller) {
         return Scaffold(
-          appBar: AppBar(title: const Text('Posts')),
           body: SafeArea(
             child: IndexedStack(
-              //  index: controller.tabIndex,
-              children: const [
-                Posts(),
-                Todos(),
-                Users(),
-              ],
+              index: controller.tabIndex,
+              children: const [Posts(), Users(), Todos()],
             ),
           ),
           bottomNavigationBar: BottomNavigationBar(
-            //  currentIndex: controller.tabIndex,
+            currentIndex: controller.tabIndex,
             onTap: controller.changeIndex,
             items: const [
               BottomNavigationBarItem(
