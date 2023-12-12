@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:listing_detail_showcase_app/controller/homePageController.dart';
 import 'package:listing_detail_showcase_app/views/posts.dart';
 import 'package:listing_detail_showcase_app/views/todos.dart';
 import 'package:listing_detail_showcase_app/views/users.dart';
-
 import '../controller/postController.dart';
 import '../controller/todosController.dart';
 
